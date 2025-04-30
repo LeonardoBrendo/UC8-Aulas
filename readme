@@ -1,58 +1,24 @@
-// -----------------------------controllers/profissionalController.js-----------------------------
-// const head = async (req, res) => {
-//   res.status(200).end(); // Apenas testa a existência do endpoint
-// };
+// npm install cors
 
-// const options = async (req, res) => {
-//   res.set('Allow', 'GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS,TRACE,CONNECT');
-//   res.status(204).end();
-// };
 
-// const trace = async (req, res) => {
-//   res.json({
-//     method: req.method,
-//     headers: req.headers,
-//     message: 'TRACE recebido',
-//   });
-// };
 
-// const connect = async (req, res) => {
-//   res.status(501).json({ message: 'CONNECT não implementado no servidor.' });
-// };
+//Adicionar
+//curl -X POST http://localhost:3000/api/profissionais ^
+//-H "Content-Type: application/json" ^
+//-d "{\"nome\": \"João Silva\", \"profissao\": \"Desenvolvedor\", \"salario\": 5000.00, \"setor\": \"TI\", \"cidade\": \"São Paulo\", \"estado\": \"SP\"}"
 
-// const patch = async (req, res) => {
-//   res.status(501).json({ message: 'PATCH parcial não implementado ainda.' });
-// };
 
-// const propfind = async (req, res) => {
-//   res.status(501).json({ message: 'PROPFIND não implementado, WebDAV.' });
-// };
+//recuperar
+//curl http://localhost:3000/profissionais
 
-// const mkcol = async (req, res) => {
-//   res.status(501).json({ message: 'MKCOL não implementado, WebDAV.' });
-// };
+//recuperar pela matricula
+//curl http://localhost:3000/profissionais/123
 
-// module.exports = {
-//   getAll,
-//   getById,
-//   create,
-//   update,
-//   remove,
-//   head,
-//   options,
-//   trace,
-//   connect,
-//   patch,
-//   propfind,
-//   mkcol,
-// };
+//atualizar
+//curl -X PUT http://localhost:3000/profissionais/123 ^
+//-H "Content-Type: application/json" ^
+//-d "{\"nome\":\"João Silva\",\"profissao\":\"Arquiteto\",\"salario\":6000,\"setor\":\"Projetos\",\"cidade\":\"Campinas\",\"estado\":\"SP\"}"
 
-// -----------------------------routes/profissionalRoutes.js-----------------------------
-// router.head('/', controller.head); // HEAD
-// router.options('/', controller.options); // OPTIONS
-// router.trace('/', controller.trace); // TRACE
-// router.all('/connect', controller.connect); // CONNECT
-// router.patch('/:matricula', controller.patch); // PATCH (não implementado ainda)
 
-// router.all('/webdav/propfind', controller.propfind); // PROPFIND
-// router.all('/webdav/mkcol', controller.mkcol);       // MKCOL
+//excluir
+//curl -X DELETE http://localhost:3000/profissionais/123

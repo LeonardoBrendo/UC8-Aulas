@@ -1,21 +1,25 @@
 const express = require('express');
-const router = express.Router();
 const controller = require('../controllers/profissionalController');
-const validate = require('../middleware/validateProfissional');
+const ValidateProfissional = require('../middleware/validateProfissional');  // Importe a classe
 
-router.get('/', controller.getAll);
-router.get('/:matricula', controller.getById);
-router.post('/', validate, controller.create);
-router.put('/:matricula', validate, controller.update);
-router.delete('/:matricula', controller.remove);
+class ProfissionalRoutes {
+  constructor() {
+    this.router = express.Router();
+    this.registerRoutes();
+  }
 
-router.head('/', controller.head); 
-router.options('/', controller.options); 
-router.trace('/', controller.trace); 
-router.all('/connect', controller.connect); 
-router.patch('/:matricula', controller.patch); 
+  registerRoutes() {
+    // Verifique se o ValidateProfissional.validate está sendo referenciado corretamente
+    this.router.get('/', controller.getAll);
+    this.router.get('/:matricula', controller.getById);
+    this.router.post('/', ValidateProfissional.validate, controller.create);  // Middleware de validação
+    this.router.put('/:matricula', ValidateProfissional.validate, controller.update);  // Middleware de validação
+    this.router.delete('/:matricula', controller.remove);
+  }
 
-router.all('/webdav/propfind', controller.propfind); 
-router.all('/webdav/mkcol', controller.mkcol);       
+  getRouter() {
+    return this.router;
+  }
+}
 
-module.exports = router;
+module.exports = new ProfissionalRoutes().getRouter();

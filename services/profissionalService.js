@@ -1,25 +1,30 @@
 const repository = require('../repositories/profissionalRepository');
 
-const getAll = async () => (await repository.findAll()).rows;
+class ProfissionalService {
+  static async getAll() {
+    const profissionais = await repository.findAll();
+    return profissionais;  // Já é um array de objetos Profissional
+  }
 
-const getById = async (id) => {
-  const result = await repository.findById(id);
-  return result.rows[0];
-};
+  static async getById(id) {
+    const profissional = await repository.findById(id);
+    return profissional;  // Pode ser null ou um objeto Profissional
+  }
 
-const create = async (dados) => {
-  const result = await repository.create(dados);
-  return result.rows[0];
-};
+  static async create(dados) {
+    const novoProfissional = await repository.create(dados);
+    return novoProfissional;  // Retorna um objeto Profissional
+  }
 
-const update = async (id, dados) => {
-  const result = await repository.update(id, dados);
-  return result.rows[0];
-};
+  static async update(id, dados) {
+    const profissionalAtualizado = await repository.update(id, dados);
+    return profissionalAtualizado;  // Retorna um objeto Profissional
+  }
 
-const remove = async (id) => {
-  const result = await repository.remove(id);
-  return result.rows[0];
-};
+  static async remove(id) {
+    const profissionalRemovido = await repository.remove(id);
+    return profissionalRemovido;  // Retorna um objeto Profissional ou null
+  }
+}
 
-module.exports = { getAll, getById, create, update, remove };
+module.exports = ProfissionalService;

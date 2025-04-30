@@ -1,97 +1,80 @@
-const service = require('../services/profissionalService');
+const ProfissionalService = require('../services/profissionalService');
 
-const getAll = async (req, res, next) => {
-  try {
-    const profissionais = await service.getAll();
-    res.json(profissionais);
-  } catch (err) {
-    next(err);
+class ProfissionalController {
+  // Buscar todos os profissionais
+  async getAll(req, res) {
+    try {
+      const profissionais = await ProfissionalService.getAll();
+      res.status(200).json(profissionais);
+    } catch (error) {
+      console.error('Erro ao buscar profissionais:', error);
+      res.status(500).json({ error: 'Erro ao buscar profissionais.' });
+    }
   }
-};
 
-const getById = async (req, res, next) => {
-  try {
-    const profissional = await service.getById(req.params.matricula);
-    if (!profissional) return res.status(404).json({ error: 'Profissional não encontrado' });
-    res.json(profissional);
-  } catch (err) {
-    next(err);
+  // Buscar por matrícula
+  async getById(req, res) {
+    try {
+      const { matricula } = req.params;
+      const profissional = await ProfissionalService.getById(matricula);
+
+      if (!profissional) {
+        return res.status(404).json({ error: 'Profissional não encontrado.' });
+      }
+
+      res.status(200).json(profissional);
+    } catch (error) {
+      console.error('Erro ao buscar profissional por ID:', error);
+      res.status(500).json({ error: 'Erro ao buscar profissional.' });
+    }
   }
-};
 
-const create = async (req, res, next) => {
-  try {
-    const novo = await service.create(req.body);
-    res.status(201).json(novo);
-  } catch (err) {
-    next(err);
+  // Criar profissional
+  async create(req, res) {
+    try {
+      const dados = req.body;
+      const novoProfissional = await ProfissionalService.create(dados);
+      res.status(201).json({ message: 'Profissional criado', data: novoProfissional });
+    } catch (error) {
+      console.error('Erro ao criar profissional:', error);
+      res.status(500).json({ error: 'Erro ao criar profissional.' });
+    }
   }
-};
 
-const update = async (req, res, next) => {
-  try {
-    const atualizado = await service.update(req.params.matricula, req.body);
-    if (!atualizado) return res.status(404).json({ error: 'Profissional não encontrado' });
-    res.json(atualizado);
-  } catch (err) {
-    next(err);
+  // Atualizar profissional
+  async update(req, res) {
+    try {
+      const { matricula } = req.params;
+      const dados = req.body;
+      const profissionalAtualizado = await ProfissionalService.update(matricula, dados);
+
+      if (!profissionalAtualizado) {
+        return res.status(404).json({ error: 'Profissional não encontrado para atualizar.' });
+      }
+
+      res.status(200).json({ message: 'Profissional atualizado', data: profissionalAtualizado });
+    } catch (error) {
+      console.error('Erro ao atualizar profissional:', error);
+      res.status(500).json({ error: 'Erro ao atualizar profissional.' });
+    }
   }
-};
 
-const remove = async (req, res, next) => {
-  try {
-    const deletado = await service.remove(req.params.matricula);
-    if (!deletado) return res.status(404).json({ error: 'Profissional não encontrado' });
-    res.json({ message: 'Profissional deletado com sucesso' });
-  } catch (err) {
-    next(err);
+  // Remover profissional
+  async remove(req, res) {
+    try {
+      const { matricula } = req.params;
+      const resultado = await ProfissionalService.remove(matricula);
+
+      if (!resultado) {
+        return res.status(404).json({ error: 'Profissional não encontrado para remover.' });
+      }
+
+      res.status(200).json({ message: 'Profissional removido com sucesso.' });
+    } catch (error) {
+      console.error('Erro ao remover profissional:', error);
+      res.status(500).json({ error: 'Erro ao remover profissional.' });
+    }
   }
-};
+}
 
-const head = async (req, res) => {
-  res.status(200).end(); // Apenas testa a existência do endpoint
-};
-
-const options = async (req, res) => {
-  res.set('Allow', 'GET,POST,PUT,PATCH,DELETE,HEAD,OPTIONS,TRACE,CONNECT');
-  res.status(204).end();
-};
-
-const trace = async (req, res) => {
-  res.json({
-    method: req.method,
-    headers: req.headers,
-    message: 'TRACE recebido',
-  });
-};
-
-const connect = async (req, res) => {
-  res.status(501).json({ message: 'CONNECT não implementado no servidor.' });
-};
-
-const patch = async (req, res) => {
-  res.status(501).json({ message: 'PATCH parcial não implementado ainda.' });
-};
-
-const propfind = async (req, res) => {
-  res.status(501).json({ message: 'PROPFIND não implementado, WebDAV.' });
-};
-
-const mkcol = async (req, res) => {
-  res.status(501).json({ message: 'MKCOL não implementado, WebDAV.' });
-};
-
-module.exports = {
-  getAll,
-  getById,
-  create,
-  update,
-  remove,
-  head,
-  options,
-  trace,
-  connect,
-  patch,
-  propfind,
-  mkcol,
-};
+module.exports = new ProfissionalController();
