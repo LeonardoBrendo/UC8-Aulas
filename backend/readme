@@ -22,3 +22,12 @@
 
 //excluir
 //curl -X DELETE http://localhost:3000/profissionais/123
+
+
+
+//--------############# MOBILE #############--------///
+//Instalar o expo-cli: npm install -g expo-cli
+//Criar o projeto em react-native: npx create-expo-app mobile
+//Entra na pasta do projeto: cd mobile
+//Executar o projeto: npx expo start
+ 
