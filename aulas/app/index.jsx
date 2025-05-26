@@ -1,36 +1,22 @@
 import React from 'react';
-import { SafeAreaView, ScrollView } from 'react-native';
+import { View, ScrollView, Button } from 'react-native';
+import { useRouter } from 'expo-router';
 
-import Form from './components/Form/Form';
 import Header from './components/Header/Header';
 import Navbar from './components/Navbar/Navbar';
+import Form from './components/Form/Form';
+import Inicio from './components/Inicio/Inicio';
 
-
-import styles from './styles';
-
-const App = () => {
-  const handlePress = () => {
-    alert('Botão pressionado!');
-  };
+export default function Home() {
+  const router = useRouter();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 20 }}>
       <Header />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <Form /> 
-      </ScrollView>
-      {/* <Navbar /> */}
-      <Navbar
-        labels={{ inicio: 'Início', formulario: 'Formulário', sobre: 'Sobre' }}
-        onInicioPress={() => console.log('Início')}
-        onFormularioPress={() => console.log('Formulário')}
-        onSobrePress={() => console.log('Sobre')}
-      />
-
-    </SafeAreaView>
+      <Navbar />
+      <Inicio />
+      <Form />
+      <Button title="Ir para Sobre" onPress={() => router.push('/sobre')} />
+    </ScrollView>
   );
-};
-
-
-
-export default App;
+}

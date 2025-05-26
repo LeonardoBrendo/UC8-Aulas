@@ -1,20 +1,12 @@
-import { Text, TouchableOpacity, View } from 'react-native';
-import styles from './styles';
+import React from 'react';
+import { View, Text } from 'react-native';
 
-const Navbar = ({ labels, onInicioPress, onFormularioPress, onSobrePress }) => {
+export default function Navbar() {
   return (
-    <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={onInicioPress}>
-        <Text style={styles.text}>{labels.inicio}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={onFormularioPress}>
-        <Text style={styles.text}>{labels.formulario}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={onSobrePress}>
-        <Text style={styles.text}>{labels.sobre}</Text>
-      </TouchableOpacity>
+    <View style={{ flexDirection: 'row', justifyContent: 'space-around', marginBottom: 20 }}>
+      <Text>Início</Text>
+      <Text>Sobre</Text>
+      <Text>Contato</Text>
     </View>
   );
-};
-
-export default Navbar;
+}
