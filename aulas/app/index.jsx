@@ -19,7 +19,14 @@ const App = () => {
       <ScrollView showsVerticalScrollIndicator={false}>
         <Form /> 
       </ScrollView>
-      <Navbar />
+      {/* <Navbar /> */}
+      <Navbar
+        labels={{ inicio: 'Início', formulario: 'Formulário', sobre: 'Sobre' }}
+        onInicioPress={() => console.log('Início')}
+        onFormularioPress={() => console.log('Formulário')}
+        onSobrePress={() => console.log('Sobre')}
+      />
+
     </SafeAreaView>
   );
 };
