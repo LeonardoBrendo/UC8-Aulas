@@ -12,11 +12,11 @@ export default function Inicio() {
       <View style={styles.buttons}>
         <Button
           title="Ir para o Formulário"
-          onPress={() => router.push('/formulario')}
+          onPress={() => router.push('/Senac')}
         />
         <Button
           title="Ir para a página Sobre"
-          onPress={() => router.push('/sobre')}
+          onPress={() => router.push('/Sobre')}
         />
       </View>
     </View>

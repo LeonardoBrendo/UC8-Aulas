@@ -102,10 +102,9 @@ const Form = () => {
           <Picker.Item label="Selecione um estado" value="" />
           <Picker.Item label="SP" value="SP" />
           <Picker.Item label="RJ" value="RJ" />
-          <Picker.Item label="MG" value="MG" />
+          <Picker.Item label="CE" value="CE" />
           <Picker.Item label="BA" value="BA" />
           <Picker.Item label="RS" value="RS" />
-          {/* adicione mais estados conforme desejar */}
         </Picker>
       </View>
 

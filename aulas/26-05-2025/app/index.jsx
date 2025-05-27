@@ -16,7 +16,7 @@ export default function Home() {
       <Navbar />
       <Inicio />
       <Form />
-      <Button title="Ir para Sobre" onPress={() => router.push('/sobre')} />
+      <Button title="Ir para Sobre" onPress={() => router.push('/Sobre')} />
     </ScrollView>
   );
 }
