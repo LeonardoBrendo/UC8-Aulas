@@ -105,6 +105,7 @@ const Form = () => {
           <Picker.Item label="CE" value="CE" />
           <Picker.Item label="BA" value="BA" />
           <Picker.Item label="RS" value="RS" />
+
         </Picker>
       </View>
 
