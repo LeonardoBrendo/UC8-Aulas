@@ -1,10 +1,9 @@
-import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function Home() {
+export default function Configuracoes() {
   return (
     <View style={styles.container}>
-      <Text>Tela Inicial</Text>
+      <Text>Configurações</Text>
     </View>
   );
 }

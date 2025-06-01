@@ -1,10 +1,9 @@
-import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function Perfil() {
+export default function EditarPerfil() {
   return (
     <View style={styles.container}>
-      <Text>Perfil do Usuário</Text>
+      <Text>Editar informações do usuário</Text>
     </View>
   );
 }

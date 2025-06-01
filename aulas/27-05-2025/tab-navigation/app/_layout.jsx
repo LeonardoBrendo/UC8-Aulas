@@ -9,13 +9,9 @@ export default function Layout() {
         tabBarIcon: ({ color, size }) => {
           let iconName;
 
-          if (route.name === 'home') {
-            iconName = 'home';
-          } else if (route.name === 'perfil') {
-            iconName = 'person';
-          } else if (route.name === 'configuracoes') {
-            iconName = 'settings';
-          }
+          if (route.name === 'home') iconName = 'home';
+          else if (route.name === 'perfil') iconName = 'person';
+          else if (route.name === 'configuracoes') iconName = 'settings';
 
           return <Ionicons name={iconName} size={size} color={color} />;
         },

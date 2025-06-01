@@ -1,10 +1,9 @@
-import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 
-export default function Configuracoes() {
+export default function DetalhesApp() {
   return (
     <View style={styles.container}>
-      <Text>Configurações</Text>
+      <Text>Informações sobre o app</Text>
     </View>
   );
 }
