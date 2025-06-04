@@ -1,7 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
-const morgan = require('morgan'); // <- Importa o morgan
+const morgan = require('morgan');
 const profissionalRoutes = require('./routes/profissionalRoutes');
 const dbInit = require('./db/dbInit');
 
@@ -17,12 +17,11 @@ class Server {
   configureMiddlewares() {
     this.app.use(express.json());
     this.app.use(cors());
-
-    // Ativa o morgan em modo 'dev' para logs de requisições no console
     this.app.use(morgan('dev'));
   }
 
   routes() {
+    // prefixo /api/profissionais para as rotas profissionais
     this.app.use('/api/profissionais', profissionalRoutes);
 
     this.app.get('/', (req, res) => {
