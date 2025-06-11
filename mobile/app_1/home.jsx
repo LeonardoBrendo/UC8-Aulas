@@ -1,8 +1,9 @@
+//app/home.jsx
 import React, { useCallback, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import api from '../api/api';
+import api from '../src/api/api';
 import { useFocusEffect } from '@react-navigation/native';
 import { colors, fonts } from './styles/theme';
 

@@ -1,8 +1,9 @@
+//app/form.jsx
 import React, { useState } from 'react';
 import { View, TextInput, Button, ScrollView, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import api from '../api/api';
+import api from '../app/api/api';
 import { colors, fonts } from './styles/theme';
 
 export default function ProfissionalForm() {
