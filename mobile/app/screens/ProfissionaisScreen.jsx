@@ -1,57 +1,59 @@
 import React, { useEffect, useState } from 'react';
-import { View, TextInput, Button, StyleSheet, ScrollView, ActivityIndicator } from 'react-native';
+import {
+  View,
+  TextInput,
+  Button,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+  Alert,
+} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import api from '../api/api';
 import { colors, fonts } from '../constants/theme';
 import BackButton from '../components/BackButton';
 
-export default function ProfissionaisScreen() {
+export default function ProfissionalScreen() {
   const navigation = useNavigation();
   const route = useRoute();
-  const profissionalId = route.params?.profissionalId || null;
+  const profissional = route.params?.profissional || null; // JSON string
 
-  const [nome, setNome] = useState('');
-  const [profissao, setProfissao] = useState('');
-  const [telefone, setTelefone] = useState('');
-  const [email, setEmail] = useState('');
+  const prof = profissional ? JSON.parse(profissional) : null;
+
+  const [nome, setNome] = useState(prof?.nome || '');
+  const [profissao, setProfissao] = useState(prof?.profissao || '');
+  const [salario, setSalario] = useState(prof?.salario?.toString() || '');
+  const [setor, setSetor] = useState(prof?.setor || '');
+  const [cidade, setCidade] = useState(prof?.cidade || '');
+  const [estado, setEstado] = useState(prof?.estado || '');
   const [loading, setLoading] = useState(false);
 
-  const carregarProfissional = async () => {
-    if (!profissionalId) return;
-    setLoading(true);
-    try {
-      const response = await api.get(`/profissionais/${profissionalId}`);
-      const { nome, profissao, telefone, email } = response.data;
-      setNome(nome);
-      setProfissao(profissao);
-      setTelefone(telefone);
-      setEmail(email);
-    } catch (error) {
-      alert('Erro ao carregar profissional.');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    carregarProfissional();
-  }, [profissionalId]);
-
-  const salvarProfissional = async () => {
+  const salvar = async () => {
     if (!nome || !profissao) {
-      alert('Nome e profissão são obrigatórios.');
+      Alert.alert('Erro', 'Nome e profissão são obrigatórios.');
       return;
     }
+
+    const dados = {
+      nome,
+      profissao,
+      salario: parseFloat(salario),
+      setor,
+      cidade,
+      estado,
+    };
+
     setLoading(true);
     try {
-      if (profissionalId) {
-        await api.put(`/profissionais/${profissionalId}`, { nome, profissao, telefone, email });
+      if (prof?.matricula) {
+        await api.put(`/profissionais/${prof.matricula}`, dados);
       } else {
-        await api.post('/profissionais', { nome, profissao, telefone, email });
+        await api.post('/profissionais', dados);
       }
       navigation.replace('Listagem');
     } catch (error) {
-      alert('Erro ao salvar profissional.');
+      console.error('Erro ao salvar profissional:', error);
+      Alert.alert('Erro', 'Erro ao salvar profissional.');
     } finally {
       setLoading(false);
     }
@@ -84,22 +86,37 @@ export default function ProfissionaisScreen() {
         placeholderTextColor={colors.textLight}
       />
       <TextInput
-        placeholder="Telefone"
-        value={telefone}
-        onChangeText={setTelefone}
-        keyboardType="phone-pad"
+        placeholder="Salário"
+        value={salario}
+        onChangeText={setSalario}
+        keyboardType="numeric"
         style={styles.input}
         placeholderTextColor={colors.textLight}
       />
       <TextInput
-        placeholder="Email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
+        placeholder="Setor"
+        value={setor}
+        onChangeText={setSetor}
         style={styles.input}
         placeholderTextColor={colors.textLight}
       />
-      <Button title="Salvar" color={colors.primary} onPress={salvarProfissional} />
+      <TextInput
+        placeholder="Cidade"
+        value={cidade}
+        onChangeText={setCidade}
+        style={styles.input}
+        placeholderTextColor={colors.textLight}
+      />
+      <TextInput
+        placeholder="Estado (UF)"
+        value={estado}
+        onChangeText={setEstado}
+        maxLength={2}
+        style={styles.input}
+        placeholderTextColor={colors.textLight}
+      />
+
+      <Button title="Salvar" color={colors.primary} onPress={salvar} />
     </ScrollView>
   );
 }
