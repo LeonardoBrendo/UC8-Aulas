@@ -1,24 +1,34 @@
 import React, { useState } from 'react';
-import { View, TextInput, Button, StyleSheet } from 'react-native';
+import { View, TextInput, Button, StyleSheet, Picker } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import api from '../api/api';
 import { colors, fonts } from '../constants/theme';
 
-export default function CadastroScreen() {
+export default function CadastroUsuarioScreen() {
   const navigation = useNavigation();
 
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [tipo, setTipo] = useState('comum'); // valor padrão
+  const [cidade, setCidade] = useState('');
+  const [estado, setEstado] = useState('');
 
   const cadastrar = async () => {
     try {
-      if (!nome || !email || !senha) {
+      if (!nome || !email || !senha || !tipo || !cidade || !estado) {
         alert('Preencha todos os campos');
         return;
       }
-      // Substitua com sua API real para cadastro
-      await api.post('/usuarios', { nome, email, senha });
+
+      await api.post('/usuarios', {
+        nome,
+        email,
+        senha,
+        tipo,
+        cidade,
+        estado,
+      });
 
       navigation.replace('Login');
     } catch (error) {
@@ -51,6 +61,29 @@ export default function CadastroScreen() {
         style={styles.input}
         placeholderTextColor={colors.textLight}
       />
+      <Picker
+        selectedValue={tipo}
+        style={styles.picker}
+        onValueChange={(itemValue) => setTipo(itemValue)}
+      >
+        <Picker.Item label="Comum" value="comum" />
+        <Picker.Item label="Analista" value="analista" />
+        <Picker.Item label="Admin" value="admin" />
+      </Picker>
+      <TextInput
+        placeholder="Cidade"
+        value={cidade}
+        onChangeText={setCidade}
+        style={styles.input}
+        placeholderTextColor={colors.textLight}
+      />
+      <TextInput
+        placeholder="Estado"
+        value={estado}
+        onChangeText={setEstado}
+        style={styles.input}
+        placeholderTextColor={colors.textLight}
+      />
       <Button title="Cadastrar" color={colors.primary} onPress={cadastrar} />
     </View>
   );
@@ -71,5 +104,10 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     color: colors.textDark,
     fontFamily: fonts.regular,
+  },
+  picker: {
+    height: 50,
+    marginBottom: 20,
+    color: colors.textDark,
   },
 });
