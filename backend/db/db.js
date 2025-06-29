@@ -10,6 +10,11 @@ const pool = new Pool({
   database: process.env.DB_NAME,  // Utiliza a variável DB_NAME do arquivo .env
   password: process.env.DB_PASSWORD, // Utiliza a variável DB_PASSWORD do arquivo .env
   port: process.env.DB_PORT,      // Utiliza a variável DB_PORT do arquivo .env
+   ssl: {
+    rejectUnauthorized: false // Permite conexões SSL mesmo com certificados autoassinados ou não verificados,
+                              // comum em ambientes de desenvolvimento ou com alguns serviços de nuvem.
+                              // Para produção rigorosa, você pode precisar de um certificado CA.
+  }
 });
 
 // Função para executar as queries no banco

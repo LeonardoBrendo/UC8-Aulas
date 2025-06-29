@@ -3,9 +3,9 @@
 
 
 //Adicionar
-//curl -X POST http://localhost:3000/api/profissionais ^
-//-H "Content-Type: application/json" ^
-//-d "{\"nome\": \"João Silva\", \"profissao\": \"Desenvolvedor\", \"salario\": 5000.00, \"setor\": \"TI\", \"cidade\": \"São Paulo\", \"estado\": \"SP\"}"
+curl -X POST http://localhost:3000/api/profissionais ^
+-H "Content-Type: application/json" ^
+-d "{\"nome\": \"João Silva\", \"profissao\": \"Desenvolvedor\", \"salario\": 5000.00, \"setor\": \"TI\", \"cidade\": \"São Paulo\", \"estado\": \"SP\"}"
 
 
 //recuperar
