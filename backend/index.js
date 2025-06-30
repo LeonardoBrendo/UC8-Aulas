@@ -1,7 +1,12 @@
-const Server = require('./server'); 
+const Server = require('./server');
 
-const server = new Server();  
-async function main() {
-  await server.start(); 
-}
-main();
+let serverApp;
+
+module.exports = async (req, res) => {
+  if (!serverApp) {
+    const server = new Server();
+    await server.initDb();
+    serverApp = server.app;
+  }
+  return serverApp(req, res);
+};

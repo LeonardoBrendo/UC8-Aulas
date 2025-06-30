@@ -32,27 +32,25 @@ class Server {
     });
   }
 
-  async initDb() { // Este método está OK
+  async initDb() { 
     try {
-      await dbInit(); // Chama a função dbInit que está em db/dbInit.js
-      console.log('Inicialização do banco de dados concluída.'); // Log mais descritivo
+      await dbInit(); 
+      console.log('Inicialização do banco de dados concluída.'); 
     } catch (err) {
       console.error('Erro ao inicializar o banco de dados:', err);
-      // É crucial que se o banco não inicializar, a aplicação não suba.
-      // Pode ser útil encerrar o processo aqui.
       process.exit(1);
     }
   }
 
-  async start() { // <--- TORNE ESTE MÉTODO ASYNC
+  async start() { 
     try {
-      await this.initDb(); // <--- AGORA AQUI É ONDE VOCÊ AGUARDA A INICIALIZAÇÃO DO BANCO
+      await this.initDb(); 
       this.app.listen(this.port, () => {
         console.log(`Servidor rodando na porta ${this.port}`);
       });
     } catch (error) {
       console.error('Falha crítica ao iniciar o servidor:', error);
-      process.exit(1); // Encerra a aplicação se houver falha ao iniciar o servidor
+      process.exit(1); 
     }
   }
 }
